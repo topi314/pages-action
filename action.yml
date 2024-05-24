@@ -33,5 +33,5 @@ inputs:
     description: "The github ref used for the deployment"
     required: false
 runs:
-  using: "node16"
+  using: "node20"
   main: "index.js"
