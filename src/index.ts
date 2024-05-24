@@ -17,6 +17,7 @@ try {
 	const branch = getInput("branch", { required: false });
 	const workingDirectory = getInput("workingDirectory", { required: false });
 	const wranglerVersion = getInput("wranglerVersion", { required: false });
+	const deploymentRef = getInput("deploymentRef", { required: false });
 
 	const getProject = async () => {
 		const response = await fetch(
@@ -60,13 +61,13 @@ try {
 		return deployment;
 	};
 
-	const githubBranch = env.GITHUB_HEAD_REF || env.GITHUB_REF_NAME;
+	const githubDeploymentRef = deploymentRef || env.GITHUB_HEAD_REF || env.GITHUB_REF_NAME;
 
 	const createGitHubDeployment = async (octokit: Octokit, productionEnvironment: boolean, environment: string) => {
 		const deployment = await octokit.rest.repos.createDeployment({
 			owner: context.repo.owner,
 			repo: context.repo.repo,
-			ref: githubBranch || context.ref,
+			ref: githubDeploymentRef || context.ref,
 			auto_merge: false,
 			description: "Cloudflare Pages",
 			required_contexts: [],

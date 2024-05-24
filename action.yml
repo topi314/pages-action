@@ -29,6 +29,9 @@ inputs:
     description: "The version of Wrangler to use"
     required: false
     default: "2"
+  deploymentRef:
+    description: "The github ref used for the deployment"
+    required: false
 runs:
   using: "node16"
   main: "index.js"
