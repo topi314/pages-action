@@ -61,13 +61,13 @@ try {
 		return deployment;
 	};
 
-	const githubDeploymentRef = deploymentRef || env.GITHUB_HEAD_REF || env.GITHUB_REF_NAME;
+	const githubBranch = deploymentRef || env.GITHUB_HEAD_REF || env.GITHUB_REF_NAME;
 
 	const createGitHubDeployment = async (octokit: Octokit, productionEnvironment: boolean, environment: string) => {
 		const deployment = await octokit.rest.repos.createDeployment({
 			owner: context.repo.owner,
 			repo: context.repo.repo,
-			ref: githubDeploymentRef || context.ref,
+			ref: githubBranch || context.ref,
 			auto_merge: false,
 			description: "Cloudflare Pages",
 			required_contexts: [],

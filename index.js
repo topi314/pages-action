@@ -22106,12 +22106,12 @@ try {
     } = await response.json();
     return deployment;
   };
-  const githubDeploymentRef = deploymentRef || import_process.env.GITHUB_HEAD_REF || import_process.env.GITHUB_REF_NAME;
+  const githubBranch = deploymentRef || import_process.env.GITHUB_HEAD_REF || import_process.env.GITHUB_REF_NAME;
   const createGitHubDeployment = async (octokit, productionEnvironment, environment) => {
     const deployment = await octokit.rest.repos.createDeployment({
       owner: import_github.context.repo.owner,
       repo: import_github.context.repo.repo,
-      ref: githubDeploymentRef || import_github.context.ref,
+      ref: githubBranch || import_github.context.ref,
       auto_merge: false,
       description: "Cloudflare Pages",
       required_contexts: [],
